@@ -1,0 +1,44 @@
+@startuml
+
+title Saisie de la fiche de renseignements par l'élève
+
+actor Étudiant
+actor "Responsable des stages"
+entity Application
+database ServeurUL
+
+ref over Étudiant, Application : autentification
+
+Étudiant -> Application : Demande de saisie
+Application -> ServeurUL : Envoi de la demande 
+
+alt demande acceptée
+	ServeurUL -> Application : Validation
+	Application -> Étudiant : Ouverture de la fenêtre de saisie
+	'Étudiant -> Application : Saisie du lieu du stage
+	'Application -> ServeurUL : Envoi des informations
+	'Étudiant -> Application : Saisie du service accueillant l'élève
+	'Application -> ServeurUL : Envoi des informations
+	'Étudiant -> Application : Saisie des informations concernant le stage
+	'Application -> ServeurUL : Envoi des informations
+	Étudiant -> Application : Saisie des renseignements sur le stage
+	Application -> ServeurUL : Envoi des informations
+	ServeurUL -> Application : Demande de validation de stage
+	Application -> "Responsable des stages" : Les informations relatives au stage on été entrées.
+	alt stage conforme
+		"Responsable des stages" -> Application : Validation du stage et commentaires
+		Application -> ServeurUL : Envoi de la validation
+		ServeurUL -> Application : Stage conforme
+		Application -> Étudiant : Votre stage est accepté.
+	else stage non-conforme
+		"Responsable des stages" -> Application : Refus du stage et commentaires
+		Application -> ServeurUL : Envoi du refus
+		ServeurUL -> Application : Stage non-conforme
+		Application -> Étudiant : Votre stage n'est pas accepté.
+		ref over Étudiant, Application : saisie fiche de renseignements
+	end
+else demande refusée
+	ServeurUL -> Application : Erreur
+	Application -> Étudiant : Message d'erreur
+end
+@enduml

@@ -1,0 +1,51 @@
+@startuml
+
+abstract class Utilisateur {
+	Utilisateur(String nom, String prenom, String mail)
+	void setSexe(char sexe)
+	char getSexe()
+	void setDateNaissance(String date)
+	String getDateNaissance()
+	void setTelephone(long tel)
+	long getTelephone()
+	void setMotDePasse(String password)
+	String getMotDePasse()
+}
+
+class Etudiant {
+	Etudiant(String id_etudiant, String ine)
+	void setAnneeEtude(int annee)
+	int getAnneeEtude()
+	void setGroupe(int grp)
+	int getGroupe()
+}
+
+class SecretaireStage {
+	SecretaireStage(String id_secretaire)
+}
+
+class ServiceInformatique {
+	ServiceInformatique(String id_informaticien)
+}
+
+class Professeur {
+	Professeur(String id_professeur)
+}
+
+class ResponsableStages {
+	ResponsableStages(int annee)
+}
+
+class Directeur {
+	Directeur(int annee)
+}
+
+Utilisateur -- Etudiant : *
+Utilisateur -- SecretaireStage : *
+Utilisateur -- ServiceInformatique : *
+Utilisateur -- Professeur : *
+Professeur -- ResponsableStages : *
+Professeur -- Directeur : *
+
+@enduml
+

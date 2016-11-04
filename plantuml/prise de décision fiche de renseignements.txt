@@ -1,0 +1,41 @@
+@startuml
+
+title Prise de décision (acceptation ou non) pour une fiche de renseignements
+
+actor "Secrétaire des stages"
+actor Étudiant
+entity Application
+database ServeurUL
+
+ref over "Secrétaire des stages", Application : autentification
+
+"Secrétaire des stages" -> Application : Demande d'obtention de la fiche de renseignements
+Application -> ServeurUL : Envoi de la demande 
+
+alt fiche existe
+	ServeurUL -> Application : Envoi de la fiche de l'étudiant concerné
+	Application -> "Secrétaire des stages" : Ouverture de la fiche
+	alt la fiche est conforme
+		"Secrétaire des stages" -> Application : Validation du stage
+		Application -> ServeurUL : Envoi de la validation
+		ServeurUL -> Application : Validation
+		Application -> Étudiant : Votre stage est accepté
+	else la fiche n'est pas conforme
+		alt le stage correspond à ce qui est attendu
+			"Secrétaire des stages" -> Application : Demande de complément
+			Application -> ServeurUL : Envoi de la demande
+			ServeurUL -> Application : Fiche incomplète
+			Application -> Étudiant : Le secrétariat des stages vous demande des compléments
+			Application -> Étudiant : Ouverture de la page de saisie des renseignements
+		else le stage ne correspond pas à ce qui est attendu
+			"Secrétaire des stages" -> Application : Refus du stage
+			Application -> ServeurUL : Envoi du refus
+			ServeurUL -> Application : Refus
+			Application -> Étudiant : Votre stage ne correspond pas aux attentes de l'école
+		end
+	end
+else fiche n'existe pas
+	ServeurUL -> Application : Erreur
+	Application -> "Secrétaire des stages" : La fiche n'existe pas
+end
+@enduml
