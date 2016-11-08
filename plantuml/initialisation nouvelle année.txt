@@ -14,6 +14,10 @@ Application -> ServeurUL : Envoi de la demande
 alt demande acceptée
 	ServeurUL -> Application : Validation
 	Application -> "Secrétaire des stages" : Ouverture de la fenêtre de saisie de la nouvelle année
+	loop il y a des élèves à entrer
+		"Secrétaire des stages" -> Application : Entrée des informations de l'élève
+		Application -> ServeurUL : Envoi des informations
+	end
 else demande refusée
 	ServeurUL -> Application : Erreur
 	Application -> "Secrétaire des stages" : Message d'erreur
