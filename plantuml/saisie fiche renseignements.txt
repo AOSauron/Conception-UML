@@ -7,7 +7,7 @@ actor "Responsable des stages"
 entity Application
 database ServeurUL
 
-ref over Étudiant, Application : autentification
+ref over Étudiant, Application : authentification
 
 Étudiant -> Application : Demande de saisie
 Application -> ServeurUL : Envoi de la demande 
