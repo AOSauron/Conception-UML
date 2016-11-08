@@ -1,0 +1,22 @@
+@startuml
+
+title Initialisation d'une nouvelle année
+
+actor "Secrétaire des stages"
+entity Application
+database ServeurUL
+
+ref over "Secrétaire des stages", Application : autentification
+
+"Secrétaire des stages" -> Application : Demande d'initialisation d'une nouvelle année
+Application -> ServeurUL : Envoi de la demande 
+
+alt demande acceptée
+	ServeurUL -> Application : Validation
+	Application -> "Secrétaire des stages" : Ouverture de la fenêtre de saisie de la nouvelle année
+else demande refusée
+	ServeurUL -> Application : Erreur
+	Application -> "Secrétaire des stages" : Message d'erreur
+end
+
+@enduml
