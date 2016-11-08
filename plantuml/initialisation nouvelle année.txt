@@ -6,7 +6,7 @@ actor "Secrétaire des stages"
 entity Application
 database ServeurUL
 
-ref over "Secrétaire des stages", Application : autentification
+ref over "Secrétaire des stages", Application : authentification
 
 "Secrétaire des stages" -> Application : Demande d'initialisation d'une nouvelle année
 Application -> ServeurUL : Envoi de la demande 
