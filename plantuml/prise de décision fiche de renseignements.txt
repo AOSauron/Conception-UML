@@ -7,7 +7,7 @@ actor Étudiant
 entity Application
 database ServeurUL
 
-ref over "Secrétaire des stages", Application : autentification
+ref over "Secrétaire des stages", Application : authentification
 
 "Secrétaire des stages" -> Application : Demande d'obtention de la fiche de renseignements
 Application -> ServeurUL : Envoi de la demande 
